@@ -27,9 +27,9 @@ Once the sphere is made from hundreds of hexagons, and working, then the next st
 When those 3 things are combined together, it will look interesting when looking how it reacts to music. I also plan to add a lot of lighting effects and transitions.
 
 ## Challenges
-Maths.. lot's of maths in every aspect of this project. 
-Time management, I'm hoping to achieve what I can within the little time we have between all assignments and FYP project.
-Learning Unity. Labs are great, but this will be the real challenge.
+- Maths.. lot's of maths in every aspect of this project. 
+- Time management, I'm hoping to achieve what I can within the little time we have between all assignments and FYP project.
+- Learning Unity. Labs are great, but this will be the real challenge.
 
 ## References
 [WebGL Globe](https://experiments.withgoogle.com/chrome/globe)
