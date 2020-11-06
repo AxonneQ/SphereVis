@@ -5,7 +5,7 @@
 
 **Student Number**: C17487376
 
-**Course**: DT228/4 / TU856/4
+**Course**: DT228/4  **/**  TU856/4
 
 ## Description
 Simply: A Sphere that visualises music.
