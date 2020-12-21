@@ -5,11 +5,8 @@ using UnityEngine;
 public class HexaSphere : MonoBehaviour
 {
     public GameObject hexagonPrefab;
-    public int size = 60;
-    public float scale = 10;
-
-    public int subdivisions = 4;
-
+    public int size = 1024;
+    public float scale = 10000;
     List<GameObject> hexagons = new List<GameObject>();
     List<Vector3> hexagonsInitPos = new List<Vector3>();
 
@@ -17,14 +14,16 @@ public class HexaSphere : MonoBehaviour
     void Start()
     {
         float scaling = 16;
-        Vector3[] pts = PointsOnSphere(1024);
+        Vector3[] pts = PointsOnSphere(size);
         int i = 0;
         
-        foreach (Vector3 value in pts)
+        for (int j = pts.Length - 1; j >= 0; j--)
         {
+            Debug.Log(pts.Length);
+
             hexagons.Add(GameObject.Instantiate(hexagonPrefab));
             hexagons[i].transform.parent = transform;
-            hexagons[i].transform.position = value * scaling;
+            hexagons[i].transform.position = pts[j] * scaling;
             hexagons[i].transform.LookAt(transform.position);
             hexagons[i].transform.Rotate( 90, 0, 0 ) ;
             hexagons[i].transform.localScale /= 1.3f;
@@ -41,12 +40,22 @@ public class HexaSphere : MonoBehaviour
         //     hex.transform.localScale += new Vector3(0, 0.1f, 0);
         // }
         for (int i = 0; i < hexagons.Count; i++) {
-            Vector3 ls = hexagons[i].transform.localScale;
-            ls.y = Mathf.Lerp(ls.y, 1 + (AudioSampler.bands[i] * scale), Time.deltaTime * 3.0f);
-            hexagons[i].transform.localScale = ls;
+            // Vector3 ls = hexagons[i].transform.localScale;
+            // ls.y = Mathf.Lerp(ls.y, 1 + (AudioSampler.bands[i] * scale), Time.deltaTime * 3.0f);
+            // hexagons[i].transform.localScale = ls;
+            // Vector3 pos = hexagons[i].transform.position;
+            // pos.y = hexagonsInitPos[i].y + (ls.y / 2);
+            // hexagons[i].transform.position = pos;
+            Vector3 lscale = hexagons[i].transform.localScale; 
+            lscale.y = Mathf.Lerp(lscale.y, 1 + (Mathf.Abs(AudioSampler.spectrum[i]) * scale), Time.deltaTime * 3.0f);
+            hexagons[i].transform.localScale = lscale;
+
             Vector3 pos = hexagons[i].transform.position;
-            pos.y = hexagonsInitPos[i].y + (ls.y / 2);
+            pos.y = hexagonsInitPos[i].y + (lscale.y / 2);
             hexagons[i].transform.position = pos;
+
+            hexagons[i].transform.LookAt(transform.position);
+            hexagons[i].transform.Rotate( 90, 0, 0 ) ;
         }
 
     }

@@ -434,8 +434,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hexagonPrefab: {fileID: 3195297257604918926, guid: 418bf1433ababb64cb5feef084c362bd, type: 3}
-  size: 60
-  subdivisions: 4
+  size: 1024
+  scale: 1000
 --- !u!1 &1439060373
 GameObject:
   m_ObjectHideFlags: 0
@@ -466,7 +466,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d9c52b30d9db544ba37abaa580c5614, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  track: {fileID: 8300000, guid: c3df3783db966c64f9be3283c9b3e5ab, type: 3}
+  track: {fileID: 8300000, guid: 1008b9ad4f96b2c4299a09b94c38de9a, type: 3}
   amgMaster: {fileID: 24300002, guid: a4d140def31765f49b388e6c25acd735, type: 2}
   binWidth: 0
   sampleRate: 0

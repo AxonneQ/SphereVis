@@ -14,7 +14,7 @@ public class AudioSampler : MonoBehaviour
     public static float[] bands;
     public static float amplitude = 0;
     public static float smoothedAmplitude = 0;
-    public static int frameSize = 512;
+    public static int frameSize = 1024;
     public float binWidth;
     public float sampleRate;
     
