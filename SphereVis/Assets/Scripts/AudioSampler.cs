@@ -52,7 +52,6 @@ public class AudioSampler : MonoBehaviour
             }
             average /= (float) width;
             bands[i] = average;
-            Debug.Log(i + "\t" + start + "\t" + end + "\t" + start * binWidth + "\t" + (end * binWidth));
         }
 
     }
