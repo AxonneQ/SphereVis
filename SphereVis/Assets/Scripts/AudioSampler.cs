@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Audio;
 
 [RequireComponent(typeof(AudioSource))]
@@ -13,8 +11,7 @@ public class AudioSampler : MonoBehaviour
     public static float[] wave;
     public static float[] bands;
     public static float amplitude = 0;
-    public static float smoothedAmplitude = 0;
-    public static int frameSize = 1024;
+    public static int frameSize = 8192;
     public float binWidth;
     public float sampleRate;
     
@@ -38,6 +35,15 @@ public class AudioSampler : MonoBehaviour
         binWidth = AudioSettings.outputSampleRate / 2 / frameSize;
     }
 
+    // Update is called once per frame
+    void Update()
+    {
+        audioSrc.GetSpectrumData(spectrum, 0, FFTWindow.Blackman);
+        audioSrc.GetOutputData(wave, 0);
+        GetAmplitude();
+        GetFrequencyBands();
+    }
+
     void GetFrequencyBands()
     {        
         for (int i = 0; i < bands.Length; i++)
@@ -53,7 +59,6 @@ public class AudioSampler : MonoBehaviour
             average /= (float) width;
             bands[i] = average;
         }
-
     }
 
     public void GetAmplitude()
@@ -64,15 +69,5 @@ public class AudioSampler : MonoBehaviour
         total += Mathf.Abs(wave[i]);
         }
         amplitude = total / wave.Length;
-        smoothedAmplitude = Mathf.Lerp(smoothedAmplitude, amplitude, Time.deltaTime * 3);
   }
-
-    // Update is called once per frame
-    void Update()
-    {
-        audioSrc.GetSpectrumData(spectrum, 0, FFTWindow.Blackman);
-        audioSrc.GetOutputData(wave, 0);
-        GetAmplitude();
-        GetFrequencyBands();
-    }
 }
