@@ -33,6 +33,7 @@ Video Demonstration using song "Deviant" by DEADLIFE:
 # How it works
 
 Most of the code is commented, but the main algorithm is basically:
+
 **Creation of the Sphere and Hexagons:**
 1. Generate Points on the Sphere. using the following function:
 ```C#
