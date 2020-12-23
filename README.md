@@ -32,13 +32,67 @@ Video Demonstration using song "Deviant" by DEADLIFE:
 
 # How it works
 
+Most of the code is commented, but the main algorithm is basically:
+**Creation of the Sphere and Hexagons:**
+1. Generate Points on the Sphere. using the following function:
+```C#
+    Vector3[] GeneratePoints(int n)
+    {
+        List<Vector3> points = new List<Vector3>();
+        float x, y, z, r, phi = 0;
+        float inc = Mathf.PI * (3 - Mathf.Sqrt(5));
+        float offset = 2.0f / n;
+
+        for (var i = 0; i < n; i++)
+        {
+            y = i * offset - 1 + (offset / 2);
+            phi = i * inc;
+            r = Mathf.Sqrt(1 - y * y);
+            x = Mathf.Cos(phi) * r;
+            z = Mathf.Sin(phi) * r;
+
+            points.Add(new Vector3(x, y, z));
+        }
+        Vector3[] ptsArray = points.ToArray();
+
+        return ptsArray;
+    }
+```
+2. Using the returned vectors, We create and instantiate the Hexagon GameObjects which are prefabs containing a Hexagon FBX model made in Blender.
+3. Assign the HexaSphere GameObject `transform` as `transform.parent` of each of the hexagons.
+4. Change the LOCAL position of each hexagon to the corresponding Vector position obtained from the returned Vectors.
+5. Use LookAt function to look at the center of the sphere.
+6. Lastly "record" each initial position and scale for each hexagon.
+
+**Update Function:**
+For each hexagon do the following:
+1. Reset the localposition to initial.
+2. If the expected scale would exceed the limit, divide the result by 3, else multiply by 3 to increase the effect.
+3. If the new localScale.y value is less than previous one, smoothe out the transition (like audio equilizer bars go rapidly up but fall slowly)
+4. Update the y scale of the hexagon and set previous scale to the same value.
+5. Update light intensity based on the amplitude and scale it up for a more visible effect.
+
 # References
+References that inspired me to create this project:
 
+[WebGL Globe](https://experiments.withgoogle.com/chrome/globe)
+
+[Loop WaveForm](https://www.uberviz.io/viz/loop/)
+
+[HexaSphere Thread](https://forum.unity.com/threads/make-procedural-hexagons-on-a-sphere-is-there-a-tool-voxels-perhaps.330907/)
 # What I am most proud of in the assignment
+I am most proud of the fact that I had an idea in my head and I executed it more less exactly how I wanted.
+What I have not implemented:
+1. Transitions into different colour schemes - I had difficulty finding the right colours and I didnt want a simple RGB change). It had to feel right.
+2. Adding UI for the user to add their own songs.
+3. Having hexagons align with each other. This is a complex mathematical task that I spend quite a bit of time on, but in the end when I increased the count of the hexagons from 1024 to 8192, it turned out that they are so "small" that it didn't matter if they were aligned side by side but also the light from inside has a gap to shine onto the columns. Unexpected behaviour became a feature.
+4. Have the camera go around the sphere "on rail".
 
-# Proposal submitted earlier can go here:
+Learning Unity is fun, and allowing my creative side to make something aesthetically pleasing with code which made me happy. Even though I worked on this project for a couple of days, I still find myself watching the demo video multiple times to look at my own creation.
 
+---
 
+# Proposal:
 ## Description
 Simply: A Sphere that visualises music.
 
