@@ -41,17 +41,21 @@ public class HexaSphere : MonoBehaviour
             hexagons[i].transform.localPosition = hexagonsInitPos[i];
 
             Vector3 lscale = hexagons[i].transform.localScale;
-            // If the previous scale is greater than current scale, decrease the scale smoothly, else increase the scale "non-smoothly"
-            if(hexagonsLastScale[i] > lscale.y) {
-                lscale.y = Mathf.Lerp(hexagonsLastScale[i], lscale.y, Time.deltaTime * 0.5f);
+
+            // If the y scale of the hexagon would exceed the limit, divide it by 3 to lower the peak, else multiply it by 3 to make the movement more interesting.
+            if((Mathf.Abs(AudioSampler.spectrum[i]) * scale) > limit) {
+                lscale.y = Mathf.Lerp(lscale.y, 1 + (Mathf.Abs(AudioSampler.spectrum[i]) * scale / 3), Time.deltaTime * 3.0f);
             } else {
-                // If the y scale of the hexagon would exceed the limit, divide it by 3 to lower the peak, else multiply it by 3 to make the movement more interesting.
-                if((Mathf.Abs(AudioSampler.spectrum[i]) * scale) > limit) {
-                    lscale.y = Mathf.Lerp(lscale.y, 1 + (Mathf.Abs(AudioSampler.spectrum[i]) * scale / 3), Time.deltaTime * 3.0f);
-                } else {
-                    lscale.y = Mathf.Lerp(lscale.y, 1 + (Mathf.Abs(AudioSampler.spectrum[i]) * scale * 3), Time.deltaTime * 3.0f);
-                }
+                lscale.y = Mathf.Lerp(lscale.y, 1 + (Mathf.Abs(AudioSampler.spectrum[i]) * scale * 3), Time.deltaTime * 3.0f);
             }
+
+            // If the previous scale is greater than current scale, decrease the scale smoothly
+            if(hexagonsLastScale[i] > lscale.y) {
+                lscale.y = Mathf.Lerp(hexagonsLastScale[i], lscale.y, Time.deltaTime * 16.0f);
+            }
+
+            hexagonsLastScale[i] = lscale.y;
+
             // Scale the hexagon around a point instead of from the center. (Didn't get it to work properly).
             ScaleAround(hexagons[i], hexagons[i].transform.localPosition + new Vector3(lscale.x, lscale.y / 2, lscale.z), lscale);
             hexagons[i].transform.localPosition = hexagonsInitPos[i];
