@@ -7,6 +7,26 @@
 
 **Course**: DT228/4  **|**  TU856/4
 
+# Description of the project
+
+SphereVis is an audio visualizer that takes a form of a sphere made out of 8192 hexagon models.
+As the audio track plays, the hexagon's Y scale increases representing the audio spectrum.
+There is a fog around the sphere and lights inside the sphere to create a nice planet eruption visual effect.
+
+Image of SphereVis in Action:
+!(SphereVis in Action)(images/demo.gif)
+
+# Instructions for use
+
+# How it works
+
+# References
+
+# What I am most proud of in the assignment
+
+# Proposal submitted earlier can go here:
+
+
 ## Description
 Simply: A Sphere that visualises music.
 
