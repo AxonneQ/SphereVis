@@ -14,7 +14,7 @@ As the audio track plays, the hexagon's Y scale increases representing the audio
 There is a fog around the sphere and lights inside the sphere to create a nice planet eruption visual effect.
 
 Image of SphereVis in Action:
-!(SphereVis in Action)(images/demo.gif)
+![SphereVis in Action](images/demo.gif)
 
 # Instructions for use
 
